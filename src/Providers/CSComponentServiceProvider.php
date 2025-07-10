@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use MoonShine\Laravel\Layouts\BaseLayout;
 use MoonShine\Laravel\Resources\ModelResource;
-use MoonShine\MenuManager\MenuItem;
 use MoonShine\Support\DTOs\AsyncCallback;
 use MoonShine\UI\Components\ActionButton;
 
@@ -20,23 +19,9 @@ final class CSComponentServiceProvider extends ServiceProvider
 
         Blade::componentNamespace('Ermakk\CSComponent\Components', 'moonshine-cs-component');
 
-        MenuItem::macro('spa', function () {
-            /** @var MenuItem $this */
-            /** @var ModelResource $filler */
-            $filler = value($this->getFiller());
-
-            return $this->setUrl(
-                fn () => $filler->getFragmentLoadUrl(BaseLayout::CONTENT_FRAGMENT_NAME)
-            )->changeButton(
-                static fn (ActionButton $btn): ActionButton => $btn->async(
-                    selector: '#' . BaseLayout::CONTENT_ID,
-                    callback: AsyncCallback::with(afterResponse: 'spaMenu')
-                )
-            );
-        });
-
         $this->publishes([
-            __DIR__ . DIRECTORY_SEPARATOR.'..'. DIRECTORY_SEPARATOR.'..'. DIRECTORY_SEPARATOR.'public' => public_path('vendor/moonshine-cs-component'),
+            __DIR__ . DIRECTORY_SEPARATOR.'..'. DIRECTORY_SEPARATOR.'..'. DIRECTORY_SEPARATOR.'resources'. DIRECTORY_SEPARATOR.'views'
+            => public_path('..'. DIRECTORY_SEPARATOR.'resources'. DIRECTORY_SEPARATOR.'views'. DIRECTORY_SEPARATOR.'vendor'. DIRECTORY_SEPARATOR.'moonshine-cs-component'),
         ], ['moonshine-cs-component', 'laravel-assets']);
     }
 }
