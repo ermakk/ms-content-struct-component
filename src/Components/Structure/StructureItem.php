@@ -33,7 +33,7 @@ class StructureItem implements StructureItemContract
     {
         return $this->title;
     }
-    public function icon(): string
+    public function icon(): ?string
     {
         return $this->icon;
     }

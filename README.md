@@ -1,11 +1,24 @@
 # MoonShine content parse to structure menu component
 
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./art/image.png">
+  <source media="(prefers-color-scheme: light)" srcset="./art/image.png">
+  <img alt="cover" src="./art/image.png">
+</picture>
+
 Компонент парсит переданное в него содержимое на предмет заголовков разного уровня (h1-h6).
 Модифицирует контент таким образом чтобы все заголовки имени идентификатор.
 Строит из них иерархическую структуру и формирует из этой структуры меню с якорными ссылками на обновленный контент.
 
-### Установка
+## Requirements
+
+- MoonShine v3+
+- Laravel v10+
+- PHP v8.2+
+
+
+## Install
 
 ```shell
 composer require ermakk/ms-cs-component
@@ -26,7 +39,7 @@ composer require ermakk/ms-cs-component
 
 ```
 
-### Использование:
+## Usage
 
 Для вывода оглавления используется компонент Menu.
 Для инициализации обязателен один параметр - content
@@ -97,7 +110,7 @@ Menu::make(MarkdownConverter::make($content))->setRoute(fn(StructureItem $item) 
 в метод getNewHtml необходимо передать переменную, куда будет помещено новое значение 
 
 
-#### Методы
+### Методы
  - setTitle(string $title) - устанавливает заголовок меню
 
  - setPlaceholder(string $placeholder) - устанавливает сообщение, которое оторажается, когда нет содержимого

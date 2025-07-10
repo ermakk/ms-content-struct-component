@@ -100,7 +100,7 @@ final class Menu extends MoonShineComponent
 
         return $this->parser;
     }
-    
+
     public function getNewHtml(&$content): static
     {
         $content = $this->getParser()->getNewHtml();

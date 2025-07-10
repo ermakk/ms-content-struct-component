@@ -22,7 +22,9 @@ final class LinkGroup extends AbstractWithComponents
     )
     {
 
-        $this->link = (new LinkItem(isset($this->route) ? value($this->route, $item) : '#'.$item->id(), $item->title()))->icon($item->icon());
+
+        $linkItem = new LinkItem(isset($this->route) ? value($this->route, $item) : '#'.$item->id(), $item->title());
+        $this->link = ($icon = $item->icon()) ? $linkItem->icon($item->icon()) : $linkItem;
         $collection = collect();
         foreach ($item->children() as $chItem) {
 
