@@ -1,5 +1,5 @@
 {
-    "name": "ermakk/ms-cs-component",
+    "name": "ermakk/ms-content-struct-component",
     "description": "A component for Moonshine that displays the structure of markdown or other text as a hierarchical menu based on h1-h6 headings",
     "license": "MIT",
     "type": "library",
@@ -9,6 +9,7 @@
         "markdown",
         "moonshine",
         "menu",
+        "html",
         "parse"
     ],
     "authors": [
@@ -20,8 +21,8 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/ermakk/ms-cs-compponent/issues",
-        "source": "https://github.com/ermakk/ms-cs-compponent"
+        "issues": "https://github.com/ermakk/ms-content-struct-component/issues",
+        "source": "https://github.com/ermakk/ms-content-struct-component"
     },
     "require": {
         "php": "^8.2",

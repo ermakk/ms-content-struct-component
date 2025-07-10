@@ -16,7 +16,7 @@ final class CSComponentServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
-        $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'moonshine-cs-component');
+        $this->loadViewsFrom(__DIR__ . DIRECTORY_SEPARATOR.'..'. DIRECTORY_SEPARATOR.'..'. DIRECTORY_SEPARATOR.'resources'. DIRECTORY_SEPARATOR.'views', 'moonshine-cs-component');
 
         Blade::componentNamespace('Ermakk\CSComponent\Components', 'moonshine-cs-component');
 
@@ -36,7 +36,7 @@ final class CSComponentServiceProvider extends ServiceProvider
         });
 
         $this->publishes([
-            __DIR__ . '/../../public' => public_path('vendor/moonshine-cs-component'),
+            __DIR__ . DIRECTORY_SEPARATOR.'..'. DIRECTORY_SEPARATOR.'..'. DIRECTORY_SEPARATOR.'public' => public_path('vendor/moonshine-cs-component'),
         ], ['moonshine-cs-component', 'laravel-assets']);
     }
 }

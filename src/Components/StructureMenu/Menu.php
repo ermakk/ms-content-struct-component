@@ -13,44 +13,68 @@ use MoonShine\UI\Components\MoonShineComponent;
 
 
 /**
- * @method static static make(ContentContract $content, Closure $route, StructureParserContract|string|null $parser = null)
+ * @method static static make(ContentContract $content, StructureParserContract|string|null $parser = null, ?Closure $route = null)
  */
 final class Menu extends MoonShineComponent
 {
-    protected $components = [];
+    protected ?iterable $components = null;
 
-    protected ?Closure $route = null;
     protected string $view = 'moonshine-cs-component::components.structure-menu.menu';
 
-    public $title = 'Оглавление:';
-    public $placeholder = 'пусто';
-    public bool $simpleMode = false;
+    protected string $title = 'Оглавление:';
+
+    protected string $placeholder = 'пусто';
+
+    protected bool $simpleMode = false;
     /**
      * @throws \Throwable
      */
     public function __construct(
-        ContentContract $content,
-        protected StructureParserContract|string|null $parser = null
+        protected ContentContract $content,
+        protected StructureParserContract|string|null $parser = null,
+        protected ?Closure $route = null
     )
     {
-        if(is_null($parser))
-            $this->parser = new HtmlParser($content);
+        parent::__construct();
+    }
+
+    protected function getComponents(): iterable
+    {
         $this->components = collect();
-        foreach ($this->parser->getItems() as $item){
+        foreach ($this->getParser()->getItems() as $item){
             if($item->hasChildren()){
 
-                $this->components->add((new LinkGroup($item))->setRoute($this->route));
+                $this->components->add(new LinkGroup($item, $this->route));
             } else {
                 $this->components->add(
                     new LinkItem(
-                        isset($this->route) ? $this->route($item) : '#'.$item->id(),
+                        isset($this->route) ? value($this->route, $item) : '#'.$item->id(),
                         $item->title()
                     )
                 );
             }
         }
-        debugbar()->addMessage($this->components);
-        parent::__construct();
+        return $this->components;
+    }
+
+    public function setTitle(string $title): static
+    {
+        $this->title = $title;
+        return $this;
+    }
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    public function setPlaceholder(string $title): static
+    {
+        $this->title = $title;
+        return $this;
+    }
+    public function getPlaceholder(): string
+    {
+        return $this->placeholder;
     }
 
     public function simpleMode(bool $condition = true): static
@@ -58,21 +82,23 @@ final class Menu extends MoonShineComponent
         $this->simpleMode = $condition;
         return $this;
     }
-    /**
-     * @param Closure|null $route
-     */
-    public function setRoute(?Closure $route): void
+    public function getSimpleMode(): bool
     {
-        $this->route = $route;
+        return $this->simpleMode;
     }
 
     public function getParser(): StructureParserContract
     {
+        if(is_null($this->parser))
+            $this->parser = new HtmlParser($this->content);
+
+        if(is_string($this->parser) && in_array(StructureParserContract::class, class_implements($this->parser)))
+            $this->parser = new $this->parser($this->content);
+
+        if(!($this->parser instanceof StructureParserContract))
+            throw new \Exception($this->parser::class.' is not an instance of StructureParserContract');
+
         return $this->parser;
-    }
-    public function getNewHtml(): string
-    {
-        return $this->newHtml;
     }
     /**
      * @return array<string, mixed>
@@ -82,7 +108,10 @@ final class Menu extends MoonShineComponent
     {
         return [
             ...parent::systemViewData(),
-            'components' => $this->components,
+            'components' => $this->getComponents(),
+            'title' => $this->getTitle(),
+            'placeholder' => $this->getPlaceholder(),
+            'simpleMode' => $this->getSimpleMode(),
         ];
     }
 
