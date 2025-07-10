@@ -1,0 +1,62 @@
+{
+    "name": "ermakk/ms-cs-component",
+    "description": "A component for Moonshine that displays the structure of markdown or other text as a hierarchical menu based on h1-h6 headings",
+    "license": "MIT",
+    "type": "library",
+    "keywords": [
+        "structure",
+        "component",
+        "markdown",
+        "moonshine",
+        "menu",
+        "parse"
+    ],
+    "authors": [
+        {
+            "name": "Ivan Losev",
+            "email": "los-van@mail.ru",
+            "homepage": "https://github.com/ermakk",
+            "role": "Owner"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/ermakk/ms-cs-compponent/issues",
+        "source": "https://github.com/ermakk/ms-cs-compponent"
+    },
+    "require": {
+        "php": "^8.2",
+        "laravel/framework": "^11.0",
+        "moonshine/moonshine": "^3.14.4"
+    },
+    "require-dev": {
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "Ermakk\\CSComponent\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ermakk\\CSComponent\\Test\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Ermakk\\CSComponent\\Providers\\CSComponentServiceProvider"
+            ]
+        }
+    },
+    "scripts": {
+    },
+    "conflict": {
+    }
+}
