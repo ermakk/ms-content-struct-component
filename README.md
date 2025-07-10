@@ -1,5 +1,10 @@
 # MoonShine content parse to structure menu component
 
+
+Компонент парсит переданное в него содержимое на предмет заголовков разного уровня (h1-h6).
+Модифицирует контент таким образом чтобы все заголовки имени идентификатор.
+Строит из них иерархическую структуру и формирует из этой структуры меню с якорными ссылками на обновленный контент.
+
 ### Установка
 
 ```shell
@@ -11,11 +16,11 @@ composer require ermakk/ms-cs-component
 
 'providers' => ServiceProvider::defaultProviders()->merge([
 
-...
+//...
 
         \Ermakk\CSComponent\Providers\CSComponentServiceProvider::class
         
-...
+//...
 
 ])->toArray(),
 
@@ -64,6 +69,34 @@ use \Ermakk\CSComponent\Converters\MarkdownConverter;
 Menu::make(MarkdownConverter::make($content))->setRoute(fn(StructureItem $item) => 'Ваш роут'.'#'.$item->id());
 ```
 
+Последнее, что осталось сделать для полноценной работы - заменить контент на обновленный,
+чтобы у всех заголовков появились идентификаторы.
+
+Для этого можно компонент не сразу встраивать в методы  формирующие страницу moonshine,
+а объявить в классе страницы переменную и в нее при формировании страницы поместить наше меню.
+А затем с помощью метода getParser() получить объект парсера и от него уже можно будет вернуть обновленную разметку
+
+```php
+
+    Str::markdown($this->structureMenu->getParser()->getNewHtml()),
+
+```
+
+В таком случае вы можете повторно использовать компонент Menu без повторного парсинга
+
+Второй метод, для возврата обновленной разметки - это использовать метод getNewHtml() прямо от объекта Menu
+
+```php
+
+//...
+   Menu(MarkdownConverter::make($resource->getItem()->content))
+    ->getNewHtml($this->newContent)
+    ->setTitle('Оглавление')
+//...
+```
+в метод getNewHtml необходимо передать переменную, куда будет помещено новое значение 
+
+
 #### Методы
  - setTitle(string $title) - устанавливает заголовок меню
 
@@ -72,3 +105,5 @@ Menu::make(MarkdownConverter::make($content))->setRoute(fn(StructureItem $item) 
  - simpleMode(bool $condition) - меняет режим отображения
    - true - простой режим, отображает только набор пунктов
    - false - стандартный режим, используемый по умолчанию, отображает заголовок меню и пункты в контейнере .box
+ - getNewHtml() - принимает в качестве параметра переменную, куда по ссылке помещает обновленную разметку
+ - так как Menu наследует MoonShineComponent, то будут доступны любые другие доступные для родительского класса методы
