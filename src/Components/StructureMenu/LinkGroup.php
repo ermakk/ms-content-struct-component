@@ -10,7 +10,7 @@ use MoonShine\UI\Components\AbstractWithComponents;
 
 final class LinkGroup extends AbstractWithComponents
 {
-    protected string $view = 'moonshine-cs-component::components.structure-menu.index';
+    protected string $view = 'ms-cs-component::components.structure-menu.index';
 
     public ?LinkItem $link = null;
 

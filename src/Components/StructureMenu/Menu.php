@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ermakk\CSComponent\Components\StructureMenu;
 
 use Exception;
+use MoonShine\AssetManager\Css;
 use Throwable;
 use Closure;
 use Ermakk\CSComponent\Contracts\ContentContract;
@@ -20,13 +21,22 @@ final class Menu extends MoonShineComponent
 {
     protected ?iterable $components = null;
 
-    protected string $view = 'moonshine-cs-component::components.structure-menu.menu';
+    protected string $view = 'ms-cs-component::components.structure-menu.menu';
 
     protected string $title = 'Оглавление:';
 
     protected string $placeholder = 'пусто';
 
     protected bool $simpleMode = false;
+
+    protected function assets(): array
+    {
+        return [
+            Css::make('vendor/ms-cs-component/css/main.css')
+        ];
+    }
+
+
     /**
      * @throws Throwable
      */

@@ -5,6 +5,9 @@ module.exports = {
         './resources/views/**/*.blade.php',
     ],
     darkMode: 'class',
+    safelist: [
+        'ml-2',
+    ],
     theme: {
         extend: {
             colors: {

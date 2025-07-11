@@ -15,7 +15,7 @@ final class LinkItem extends MoonShineComponent implements HasIconContract
 {
     use WithIcon;
 
-    protected string $view = 'moonshine-cs-component::components.structure-menu.item';
+    protected string $view = 'ms-cs-component::components.structure-menu.item';
 
     public function __construct(
         private string $href,

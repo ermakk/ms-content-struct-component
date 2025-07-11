@@ -11,13 +11,16 @@ final class CSComponentServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
-        $this->loadViewsFrom(__DIR__ . DIRECTORY_SEPARATOR.'..'. DIRECTORY_SEPARATOR.'..'. DIRECTORY_SEPARATOR.'resources'. DIRECTORY_SEPARATOR.'views', 'moonshine-cs-component');
+        $this->loadViewsFrom(__DIR__ . DIRECTORY_SEPARATOR.'..'. DIRECTORY_SEPARATOR.'..'. DIRECTORY_SEPARATOR.'resources'. DIRECTORY_SEPARATOR.'views', 'ms-cs-component');
 
-        Blade::componentNamespace('Ermakk\CSComponent\Components', 'moonshine-cs-component');
+        Blade::componentNamespace('Ermakk\CSComponent\Components', 'ms-cs-component');
 
         $this->publishes([
             __DIR__ . DIRECTORY_SEPARATOR.'..'. DIRECTORY_SEPARATOR.'..'. DIRECTORY_SEPARATOR.'resources'. DIRECTORY_SEPARATOR.'views'
-            => public_path('..'. DIRECTORY_SEPARATOR.'resources'. DIRECTORY_SEPARATOR.'views'. DIRECTORY_SEPARATOR.'vendor'. DIRECTORY_SEPARATOR.'moonshine-cs-component'),
-        ], ['moonshine-cs-component', 'laravel-assets']);
+            => resource_path('views'. DIRECTORY_SEPARATOR.'vendor'. DIRECTORY_SEPARATOR.'ms-cs-component'),
+
+            __DIR__ . DIRECTORY_SEPARATOR.'..'. DIRECTORY_SEPARATOR.'..'. DIRECTORY_SEPARATOR.'public'
+            => public_path('vendor'. DIRECTORY_SEPARATOR.'ms-cs-component'),
+        ], ['ms-cs-component', 'laravel-assets']);
     }
 }

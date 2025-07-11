@@ -1,0 +1,7 @@
+{
+  "resources/css/main.css": {
+    "file": "css/main.css",
+    "isEntry": true,
+    "src": "resources/css/main.css"
+  }
+}
