@@ -41,7 +41,7 @@ class HtmlParser implements StructureParserContract
     {
         preg_match_all('/<h([1-6])(?:\sid="([^"]+)")?\s*(?:\sdata-structure-icon="([^"]+)")?\s*>(.*?)<\/h\1>/i', $this->htmlContent, $matches);
 
-        if (!$matches || empty($matches[0])) {
+        if (empty($matches[0])) {
             return null;
         }
 

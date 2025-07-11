@@ -3,7 +3,7 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build",
-        "rector": "vendor/bin/rector process --clear-cache"
+        "rector": "php vendor/bin/rector process --clear-cache"
     },
     "devDependencies": {
         "vite": "^4.5.9",

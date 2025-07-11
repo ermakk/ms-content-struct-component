@@ -57,7 +57,6 @@
         }
     },
     "scripts": {
-        "rector": "vendor/bin/rector process --clear-cache"
     },
     "conflict": {
         "moonshine/moonshine": "<3.0"
