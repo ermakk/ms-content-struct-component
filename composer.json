@@ -25,11 +25,11 @@
         "source": "https://github.com/ermakk/ms-content-struct-component"
     },
     "require": {
-        "php": "^8.2",
-        "laravel/framework": "^11.0",
-        "moonshine/moonshine": "^3.14.4"
+        "php": "^8.2|^8.3|^8.4"
     },
     "require-dev": {
+        "rector/rector": "^1.0",
+        "moonshine/moonshine": "^3.14.4"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
@@ -57,7 +57,9 @@
         }
     },
     "scripts": {
+        "rector": "vendor/bin/rector process --clear-cache"
     },
     "conflict": {
+        "moonshine/moonshine": "<3.0"
     }
 }

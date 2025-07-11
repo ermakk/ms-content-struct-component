@@ -9,7 +9,7 @@ export default defineConfig({
                 assetFileNames: file => {
                     let ext = file.name.split('.').pop()
                     if (ext === 'css') {
-                        return 'css/main.css'
+                        return 'css/cs-component.css'
                     }
                 }
             }
