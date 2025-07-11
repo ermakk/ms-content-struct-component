@@ -101,7 +101,7 @@ class HtmlParser implements StructureParserContract
             return $htmlContent;
         }
         // Массив счётчиков для заголовков разного уровня
-        $counters = array_fill(0, 7, 0); // Максимум 6 уровней (H1-H6), плюс нулевой элемент для простоты
+        $counters = array_fill(0, 6, 0); // Максимум 6 уровней (H1-H6)
 
         foreach ($this->items as $heading) {
             $this->updateHTMLForHeading($htmlContent, $heading, $counters);
@@ -115,8 +115,8 @@ class HtmlParser implements StructureParserContract
         if ($heading->id() === '') {
             $counters[$heading->level()]++;
             $pathComponents = [];
-            for ($i = 1; $i <= $heading->level(); $i++) {
-                $pathComponents[] = $counters[$i];
+            for ($i = 0; $i <= $heading->level()-1; $i++) {
+                $pathComponents[] = $counters[$i+1];// уровень начинается с первого, а не с нулевого, поэтому +1
             }
             $finalId = 'heading-' . implode('-', $pathComponents);
             $heading->setId($finalId);
