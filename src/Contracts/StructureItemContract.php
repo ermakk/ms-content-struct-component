@@ -2,8 +2,6 @@
 
 namespace Ermakk\CSComponent\Contracts;
 
-use Illuminate\Support\Collection;
-
 interface StructureItemContract
 {
     public function title(): string;

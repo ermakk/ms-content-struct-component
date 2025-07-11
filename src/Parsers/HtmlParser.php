@@ -41,10 +41,12 @@ class HtmlParser implements StructureParserContract
     {
         preg_match_all('/<h([1-6])(?:\sid="([^"]+)")?\s*(?:\sdata-structure-icon="([^"]+)")?\s*>(.*?)<\/h\1>/i', $this->htmlContent, $matches);
 
-        if (!$matches || empty($matches[0])) return null;
+        if (!$matches || empty($matches[0])) {
+            return null;
+        }
 
         $structure = new StructureItems();;
-        foreach ($matches[0] as $index => $match) {
+        foreach (array_keys($matches[0]) as $index) {
             $level = intval($matches[1][$index]);
             $id = strlen($matches[2][$index]) > 0 ? $matches[2][$index] : null; // Захватываем ручной идентификатор, если он есть
             $icon = $matches[3][$index];
@@ -95,8 +97,9 @@ class HtmlParser implements StructureParserContract
     {
         // Далее применяем разметку Markdown с добавлением атрибута id к заголовкам
         $htmlContent = $this->htmlContent;
-        if(!isset($this->items))
+        if (!$this->items instanceof StructureItems) {
             return $htmlContent;
+        }
         // Массив счётчиков для заголовков разного уровня
         $counters = array_fill(0, 7, 0); // Максимум 6 уровней (H1-H6), плюс нулевой элемент для простоты
 
@@ -109,7 +112,7 @@ class HtmlParser implements StructureParserContract
 
     private function updateHTMLForHeading(string &$htmlContent, StructureItem &$heading, array &$counters): void {
         // если не существует идентификатора генерируем его и подставляем в разметку
-        if ($heading->id() == '') {
+        if ($heading->id() === '') {
             $counters[$heading->level()]++;
             $pathComponents = [];
             for ($i = 1; $i <= $heading->level(); $i++) {

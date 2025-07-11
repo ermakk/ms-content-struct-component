@@ -6,10 +6,6 @@ namespace Ermakk\CSComponent\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-use MoonShine\Laravel\Layouts\BaseLayout;
-use MoonShine\Laravel\Resources\ModelResource;
-use MoonShine\Support\DTOs\AsyncCallback;
-use MoonShine\UI\Components\ActionButton;
 
 final class CSComponentServiceProvider extends ServiceProvider
 {

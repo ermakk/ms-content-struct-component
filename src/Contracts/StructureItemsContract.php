@@ -2,8 +2,6 @@
 
 namespace Ermakk\CSComponent\Contracts;
 
-use Illuminate\Support\Collection;
-
 interface StructureItemsContract
 {
     public function append(StructureItemContract $item): void;

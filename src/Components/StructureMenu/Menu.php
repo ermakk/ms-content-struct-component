@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Ermakk\CSComponent\Components\StructureMenu;
 
+use Exception;
+use Throwable;
 use Closure;
-use Ermakk\CSComponent\Components\Structure\StructureItem;
 use Ermakk\CSComponent\Contracts\ContentContract;
 use Ermakk\CSComponent\Contracts\StructureParserContract;
 use Ermakk\CSComponent\Parsers\HtmlParser;
@@ -27,7 +28,7 @@ final class Menu extends MoonShineComponent
 
     protected bool $simpleMode = false;
     /**
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function __construct(
         protected ContentContract $content,
@@ -89,14 +90,17 @@ final class Menu extends MoonShineComponent
 
     public function getParser(): StructureParserContract
     {
-        if(is_null($this->parser))
+        if (is_null($this->parser)) {
             $this->parser = new HtmlParser($this->content);
+        }
 
-        if(is_string($this->parser) && in_array(StructureParserContract::class, class_implements($this->parser)))
+        if (is_string($this->parser) && in_array(StructureParserContract::class, class_implements($this->parser))) {
             $this->parser = new $this->parser($this->content);
+        }
 
-        if(!($this->parser instanceof StructureParserContract))
-            throw new \Exception($this->parser::class.' is not an instance of StructureParserContract');
+        if (!($this->parser instanceof StructureParserContract)) {
+            throw new Exception($this->parser::class.' is not an instance of StructureParserContract');
+        }
 
         return $this->parser;
     }

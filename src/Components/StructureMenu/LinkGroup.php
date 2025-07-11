@@ -6,7 +6,6 @@ namespace Ermakk\CSComponent\Components\StructureMenu;
 
 use Closure;
 use Ermakk\CSComponent\Components\Structure\StructureItem;
-use Illuminate\Support\Collection;
 use MoonShine\UI\Components\AbstractWithComponents;
 
 final class LinkGroup extends AbstractWithComponents

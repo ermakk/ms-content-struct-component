@@ -2,13 +2,12 @@
 
 namespace Ermakk\CSComponent\Components\Structure;
 
+use IteratorAggregate;
 use Ermakk\CSComponent\Contracts\StructureItemContract;
 use Ermakk\CSComponent\Contracts\StructureItemsContract;
-use Exception;
 use Illuminate\Support\Collection;
-use Traversable;
 
-class StructureItems implements StructureItemsContract, \IteratorAggregate
+class StructureItems implements StructureItemsContract, IteratorAggregate
 {
     protected $items = [];
 
